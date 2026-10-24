@@ -1,0 +1,625 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Maharashtra Farm Loan Flowchart</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,600..800&family=IBM+Plex+Mono:wght@400;500&family=Mukta:wght@400;500;700&display=swap">
+<style>
+/* Layout: questions run down the left like a bank form with a spine of numbered stops; the route map stays pinned on the right and lights up the path you are on. */
+:root{
+  --paper:#E9EDE2; --sheet:#F6F8F0; --ink:#1A2330; --ink2:#46515F; --rule:#B6BEA9;
+  --stamp:#1C4D8A; --stamp-bg:#D9E5F3; --on-stamp:#FFFFFF;
+  --verify:#8F5600; --verify-bg:#F3E3BE;
+  --ok:#2B6A3D; --ok-bg:#D9EAD5;
+  --stop:#9A2B1E; --stop-bg:#F3D9D3;
+  --f-display:'Archivo','Arial Narrow',Arial,sans-serif;
+  --f-body:'Mukta','Noto Sans Devanagari','Segoe UI',system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#10161D; --sheet:#18202A; --ink:#E6EBE0; --ink2:#A3AEBB; --rule:#344050;
+    --stamp:#86B4EC; --stamp-bg:#1B2D45; --on-stamp:#0E1722;
+    --verify:#E8B24E; --verify-bg:#38290F;
+    --ok:#82C894; --ok-bg:#1B3224;
+    --stop:#F28F80; --stop-bg:#3B1E1A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#10161D; --sheet:#18202A; --ink:#E6EBE0; --ink2:#A3AEBB; --rule:#344050;
+  --stamp:#86B4EC; --stamp-bg:#1B2D45; --on-stamp:#0E1722;
+  --verify:#E8B24E; --verify-bg:#38290F;
+  --ok:#82C894; --ok-bg:#1B3224;
+  --stop:#F28F80; --stop-bg:#3B1E1A;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--f-body);
+  padding-block:20px 56px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin-inline:auto}
+a{color:var(--stamp);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,textarea:focus-visible,summary:focus-visible,input:focus-visible+.box{outline:3px solid var(--stamp);outline-offset:2px}
+
+/* header */
+.top{display:grid;gap:12px;padding-bottom:20px;border-bottom:2px solid var(--ink)}
+.kicker{font:500 12px/1.2 var(--f-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--stamp)}
+h1{margin:0;max-width:20ch;font:800 clamp(30px,5.4vw,46px)/1.04 var(--f-display);font-stretch:80%;letter-spacing:-.01em;text-wrap:balance}
+.lead{margin:0;max-width:62ch;font-size:18px}
+.fine{margin:0;max-width:70ch;font-size:14.5px;color:var(--ink2)}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{appearance:none;font:700 15px/1.2 var(--f-body);padding:10px 14px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;border-radius:2px}
+.btn:hover{background:var(--stamp);border-color:var(--stamp);color:var(--on-stamp)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--stamp-bg);border-color:var(--stamp);color:var(--ink)}
+
+/* two columns */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:36px;align-items:start;margin-top:26px}
+.map{position:sticky;top:calc(16px + env(safe-area-inset-top,0px))}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}.map{position:static}}
+
+/* the spine of questions */
+.step{position:relative;display:grid;grid-template-columns:36px minmax(0,1fr);gap:0 14px;padding-bottom:24px}
+.step::before{content:"";position:absolute;left:17px;top:38px;bottom:2px;width:2px;background:var(--rule)}
+.step:last-child{padding-bottom:0}
+.step:last-child::before{display:none}
+.mark{width:36px;height:36px;display:grid;place-items:center;border:2px solid var(--ink);background:var(--sheet);font:500 15px/1 var(--f-mono)}
+.step.done .mark{background:var(--ink);color:var(--paper)}
+.step.now .mark{background:var(--stamp);border-color:var(--stamp);color:var(--on-stamp)}
+.step.later .mark{border-style:dashed;border-color:var(--ink2);color:var(--ink2);background:transparent}
+.q{margin:4px 0 0;font:700 21px/1.2 var(--f-display);font-stretch:88%;text-wrap:balance}
+.step.later .q{color:var(--ink2);font-weight:600}
+.later-note{margin:4px 0 0;font-size:14.5px;color:var(--ink2)}
+.ans{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:8px 0 0}
+.chip{display:inline-block;padding:2px 10px;border:1.5px solid var(--stamp);background:var(--stamp-bg);color:var(--ink);font-weight:700;font-size:15px;line-height:1.4;border-radius:2px}
+.edit{appearance:none;background:none;border:0;padding:6px 2px;font:500 14.5px var(--f-body);color:var(--stamp);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.opts{display:grid;gap:8px;margin-top:12px}
+.opts.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opt{appearance:none;display:grid;gap:2px;width:100%;padding:12px 14px;text-align:left;font:inherit;color:inherit;background:var(--sheet);border:1.5px solid var(--ink);border-radius:2px;cursor:pointer;transition:background .12s,border-color .12s}
+.opt:hover{background:var(--stamp-bg);border-color:var(--stamp)}
+.opt b{font-weight:700;font-size:17px;line-height:1.3}
+.opt span{font-size:15px;line-height:1.4;color:var(--ink2)}
+@media (max-width:560px){
+  .opts.c2{grid-template-columns:minmax(0,1fr)}
+  .step{grid-template-columns:32px minmax(0,1fr);gap:0 12px}
+  .mark{width:32px;height:32px}
+  .step::before{left:15px;top:34px}
+}
+
+/* checklist card */
+.card{margin-top:12px;border:2px solid var(--ink);background:var(--sheet)}
+.card-h{display:grid;gap:4px;padding:14px 16px;background:var(--stamp);color:var(--on-stamp)}
+.card-h h2{margin:0;font:800 26px/1.1 var(--f-display);font-stretch:80%;text-wrap:balance}
+.card-h p{margin:0;font-size:15px}
+.card-b{display:grid;gap:20px;padding:16px}
+.sum{display:flex;flex-wrap:wrap;gap:6px}
+.sum .chip{font-weight:500;font-size:14px}
+.how{display:grid;gap:6px;margin:0;padding-left:20px}
+.how li{padding-left:2px}
+.legend{margin:0;font-size:14.5px;color:var(--ink2)}
+.sec h3{margin:0 0 4px;padding-bottom:6px;border-bottom:1.5px solid var(--rule);font:500 12px/1.2 var(--f-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink2)}
+.items{list-style:none;margin:0;padding:0}
+.item{border-bottom:1px dashed var(--rule)}
+.item:last-child{border-bottom:0}
+.item label{position:relative;display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px;padding:10px 0;cursor:pointer}
+.item input{position:absolute;left:0;top:10px;width:24px;height:24px;margin:0;opacity:0;cursor:pointer}
+.box{position:relative;display:block;width:24px;height:24px;margin-top:2px;border:2px solid var(--ink);background:var(--paper)}
+.item input:checked+.box{background:var(--ok);border-color:var(--ok)}
+.item input:checked+.box::after{content:"";position:absolute;left:6px;top:1px;width:7px;height:13px;border:solid var(--paper);border-width:0 3px 3px 0;transform:rotate(45deg)}
+.txt{display:grid;gap:3px;min-width:0}
+.ttl{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
+.ttl b{font-weight:700;font-size:16.5px;line-height:1.35;overflow-wrap:anywhere}
+.item input:checked~.txt .ttl b{color:var(--ink2)}
+.txt small{font-size:14.5px;line-height:1.45;color:var(--ink2)}
+.tag{font:500 11px/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;padding:3px 6px;border:1px solid currentColor;font-style:normal;white-space:nowrap}
+.tag.req{color:var(--ok);background:var(--ok-bg)}
+.tag.ask{color:var(--verify);background:var(--verify-bg)}
+.tag.sch{color:var(--stamp);background:var(--stamp-bg)}
+.notice{margin:0;padding:10px 12px;border:1.5px solid var(--verify);background:var(--verify-bg);color:var(--ink);font-size:15px}
+.notice.stop{border-color:var(--stop);background:var(--stop-bg)}
+.notice b{display:block;margin-bottom:2px;font:500 12px/1.3 var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--verify)}
+.notice.stop b{color:var(--stop)}
+.verify{display:grid;gap:8px}
+.progress{display:flex;align-items:center;gap:10px;font:500 13px/1 var(--f-mono);color:var(--ink2)}
+.bar{flex:1;height:8px;border:1.5px solid var(--ink);background:var(--paper)}
+.bar i{display:block;height:100%;width:0;background:var(--ok)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.cp{width:100%;margin-top:8px;padding:10px;font:14px/1.5 var(--f-mono);color:var(--ink);background:var(--paper);border:1.5px solid var(--ink)}
+.hint{margin:0;font-size:14px;color:var(--ink2)}
+@media (max-width:560px){.card-h h2{font-size:23px}.card-b{padding:14px}}
+
+/* route map */
+.lab{margin:0 0 8px;font:500 12px/1.2 var(--f-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink2)}
+.map figure{margin:0;padding:10px;border:2px solid var(--ink);background:var(--sheet)}
+.map svg{display:block;width:100%;height:auto;color:var(--ink)}
+.map figcaption{margin-top:8px;font-size:14.5px;line-height:1.45;color:var(--ink2)}
+svg text{fill:currentColor;font-family:var(--f-body)}
+svg .ln{fill:none;stroke:var(--ink2);stroke-width:1.5;stroke-linejoin:round;marker-end:url(#ah)}
+svg .ln.bare{marker-end:none}
+svg .hl{display:none;fill:none;stroke:var(--stamp);stroke-width:3;stroke-linejoin:round;marker-end:url(#ah-on)}
+svg .biz.on .hl{display:inline}
+svg .nd rect{fill:var(--sheet);stroke:currentColor;stroke-width:1.5}
+svg .biz.on .nd rect{fill:var(--stamp-bg);stroke:var(--stamp);stroke-width:2.5}
+svg .biz.on .nd text{fill:var(--stamp)}
+svg .gate rect{fill:var(--sheet);stroke:currentColor;stroke-width:1.5}
+svg .gate.done rect{fill:var(--ok-bg);stroke:var(--ok);stroke-width:2.5}
+svg .gate.done text{fill:var(--ok)}
+svg .res rect{fill:var(--sheet);stroke:currentColor;stroke-width:2}
+svg .res.on rect{fill:var(--stamp);stroke:var(--stamp)}
+svg .res.on text{fill:var(--on-stamp)}
+svg .ah path{fill:var(--ink2)}
+svg .ah-on path{fill:var(--stamp)}
+.src{margin-top:34px;padding-top:16px;border-top:2px solid var(--ink);font-size:14.5px}
+.src summary{cursor:pointer;font:500 12px/1.4 var(--f-mono);letter-spacing:.09em;text-transform:uppercase}
+.src ul{margin:10px 0 0;padding-left:18px;display:grid;gap:4px}
+a.btn{display:inline-block;text-decoration:none}
+.sec p.rt{margin:8px 0 6px}
+.opts+.hint{margin-top:10px}
+[tabindex="-1"]:focus{outline:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+<div class="wrap">
+<header class="top">
+  <div class="kicker">Maharashtra · Farm business loans</div>
+  <h1>Which documents will the bank ask for?</h1>
+  <p class="lead">Answer five short questions. You get a checklist of the papers to carry to the branch, and the map shows the route your loan takes.</p>
+  <p class="fine">Built from scheme, bank, NABARD, FSSAI and MPCB pages and a few explainer sites, checked in October 2026 (see Sources at the bottom). Banks differ, so anything tagged <i class="tag ask">Ask your bank</i> needs a quick confirmation at the branch. This is a guide, not legal or financial advice.</p>
+  <div class="tools">
+    <button id="ex" class="btn ghost" type="button">Try an example</button>
+    <button id="reset" class="btn ghost" type="button">Start over</button>
+  </div>
+</header>
+
+<main class="grid">
+  <div id="flow" class="flow"></div>
+
+  <aside class="map" id="map" aria-label="Route map">
+    <h2 class="lab">Your route</h2>
+    <figure>
+      <svg viewBox="0 0 400 440" role="img" aria-label="Flowchart. Five business types each lead to a loan route. All routes then pass through land and Farmer ID papers, a loan size check that sets the collateral rule, and licences and scheme papers, and end in your document checklist.">
+        <defs>
+          <marker id="ah" class="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
+          <marker id="ah-on" class="ah-on" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
+        </defs>
+
+        <g class="base">
+          <path class="ln" d="M200 42V62H40V82"/><path class="ln" d="M40 116V140"/><path class="ln" d="M40 194V214H200V234"/>
+          <path class="ln" d="M200 42V62H120V82"/><path class="ln" d="M120 116V140"/><path class="ln" d="M120 194V214H200V234"/>
+          <path class="ln" d="M200 42V82"/><path class="ln" d="M200 116V140"/><path class="ln" d="M200 194V234"/>
+          <path class="ln" d="M200 42V62H280V82"/><path class="ln" d="M280 116V140"/><path class="ln" d="M280 194V214H200V234"/>
+          <path class="ln" d="M200 42V62H360V82"/><path class="ln" d="M360 116V140"/><path class="ln" d="M360 194V214H200V234"/>
+          <path class="ln" d="M200 270V282"/><path class="ln" d="M200 318V330"/><path class="ln" d="M200 366V386"/>
+        </g>
+
+        <g class="start nd"><rect x="126" y="6" width="148" height="36"/><text x="200" y="28" text-anchor="middle" font-size="12.5" font-weight="700">Start: I need a loan</text></g>
+
+        <g class="biz" data-b="dairy">
+          <path class="hl" d="M200 42V62H40V82"/><path class="hl" d="M40 116V140"/><path class="hl" d="M40 194V214H200V234"/>
+          <g class="nd"><rect x="4" y="82" width="72" height="34"/><text x="40" y="104" text-anchor="middle" font-size="12.5" font-weight="700">Dairy</text></g>
+          <g class="nd"><rect x="4" y="140" width="72" height="54"/><text text-anchor="middle" font-size="11"><tspan x="40" y="157" font-weight="700">Agri loan</tspan><tspan x="40" y="171">AHIDF if</tspan><tspan x="40" y="185">processing</tspan></text></g>
+        </g>
+        <g class="biz" data-b="spice">
+          <path class="hl" d="M200 42V62H120V82"/><path class="hl" d="M120 116V140"/><path class="hl" d="M120 194V214H200V234"/>
+          <g class="nd"><rect x="84" y="82" width="72" height="34"/><text x="120" y="104" text-anchor="middle" font-size="12.5" font-weight="700">Spice</text></g>
+          <g class="nd"><rect x="84" y="140" width="72" height="54"/><text text-anchor="middle" font-size="11"><tspan x="120" y="157" font-weight="700">MSME loan</tspan><tspan x="120" y="171">PMFME</tspan><tspan x="120" y="185">subsidy</tspan></text></g>
+        </g>
+        <g class="biz" data-b="beverage">
+          <path class="hl" d="M200 42V82"/><path class="hl" d="M200 116V140"/><path class="hl" d="M200 194V234"/>
+          <g class="nd"><rect x="164" y="82" width="72" height="34"/><text x="200" y="104" text-anchor="middle" font-size="12.5" font-weight="700">Beverage</text></g>
+          <g class="nd"><rect x="164" y="140" width="72" height="54"/><text text-anchor="middle" font-size="11"><tspan x="200" y="157" font-weight="700">MSME loan</tspan><tspan x="200" y="171">FSSAI</tspan><tspan x="200" y="185">licence</tspan></text></g>
+        </g>
+        <g class="biz" data-b="groundnut">
+          <path class="hl" d="M200 42V62H280V82"/><path class="hl" d="M280 116V140"/><path class="hl" d="M280 194V214H200V234"/>
+          <g class="nd"><rect x="244" y="82" width="72" height="34"/><text x="280" y="104" text-anchor="middle" font-size="12.5" font-weight="700">Groundnut</text></g>
+          <g class="nd"><rect x="244" y="140" width="72" height="54"/><text text-anchor="middle" font-size="11"><tspan x="280" y="157" font-weight="700">AIF loan</tspan><tspan x="280" y="171">oil units:</tspan><tspan x="280" y="185">PMFME</tspan></text></g>
+        </g>
+        <g class="biz" data-b="herbs">
+          <path class="hl" d="M200 42V62H360V82"/><path class="hl" d="M360 116V140"/><path class="hl" d="M360 194V214H200V234"/>
+          <g class="nd"><rect x="324" y="82" width="72" height="34"/><text x="360" y="104" text-anchor="middle" font-size="12.5" font-weight="700">Herbs</text></g>
+          <g class="nd"><rect x="324" y="140" width="72" height="54"/><text text-anchor="middle" font-size="11"><tspan x="360" y="157" font-weight="700">Agri loan</tspan><tspan x="360" y="171">or KCC</tspan><tspan x="360" y="185">+ subsidy</tspan></text></g>
+        </g>
+
+        <g class="gate" data-g="1"><rect x="60" y="234" width="280" height="36"/><text x="200" y="257" text-anchor="middle" font-size="12.5" font-weight="700">Land and Farmer ID papers</text></g>
+        <g class="gate" data-g="2"><rect x="60" y="282" width="280" height="36"/><text x="200" y="305" text-anchor="middle" font-size="12.5" font-weight="700">Loan size sets the collateral rule</text></g>
+        <g class="gate" data-g="3"><rect x="60" y="330" width="280" height="36"/><text x="200" y="353" text-anchor="middle" font-size="12.5" font-weight="700">Licences and scheme papers</text></g>
+        <g class="res"><rect x="60" y="386" width="280" height="44"/><text x="200" y="413" text-anchor="middle" font-size="14" font-weight="700">Your document checklist</text></g>
+      </svg>
+      <figcaption id="mapcap">Pick a business and its route lights up in blue. A green box means that group of papers is covered by your answers.</figcaption>
+    </figure>
+  </aside>
+</main>
+
+<details class="src">
+  <summary>Sources used</summary>
+  <ul>
+    <li><a href="https://sbi.bank.in/web/agri-rural/agriculture-banking/government-schemes/pmfme-scheme" target="_blank" rel="noopener noreferrer">SBI: PMFME scheme terms, collateral and documents</a></li>
+    <li><a href="https://agriinfra.dac.gov.in/Home/CheckList" target="_blank" rel="noopener noreferrer">Agriculture Infrastructure Fund: document checklist</a> and <a href="https://agriinfra.dac.gov.in/" target="_blank" rel="noopener noreferrer">portal</a></li>
+    <li><a href="https://silpasathi.wb.gov.in/sites/default/files/nfs_upload/document_repository/DR1783282953.pdf" target="_blank" rel="noopener noreferrer">FSSAI order: documents by kind of business</a></li>
+    <li><a href="https://mpcb.gov.in/sites/default/files/whats_new/2025-06/Final_White_category_Website_02062025.pdf" target="_blank" rel="noopener noreferrer">MPCB: white category industries (June 2025)</a></li>
+    <li><a href="https://webiis10.mondaq.com/india/land-law-agriculture/1750716/sanad-non-agricultural-permission-no-longer-required-for-permissible-non-agricultural-use" target="_blank" rel="noopener noreferrer">Khaitan &amp; Co: end of separate NA permission in Maharashtra</a></li>
+    <li><a href="https://www.dailypioneer.com/2024/business/rbi-raises-collateral-free-agricultural-loan-limit-to-rs-2-lakh-to-aid-farmers.html" target="_blank" rel="noopener noreferrer">RBI: collateral-free agricultural loans up to ₹2 lakh</a> and <a href="https://www.outlookmoney.com/banking/rbi-revises-kisan-credit-card-framework-sets-uniform-crop-season-timelines" target="_blank" rel="noopener noreferrer">KCC rules update</a></li>
+    <li><a href="https://en.vikaspedia.in/viewcontent/agriculture/livestock/model-bankable-projects/model-bankable-scheme-on-indigenous-cow" target="_blank" rel="noopener noreferrer">NABARD model dairy scheme</a></li>
+    <li><a href="https://bankofbaroda.in/business-banking/rural-and-agri/loans-and-advances/animal-husbandry-infrastructure-development-fund" target="_blank" rel="noopener noreferrer">Bank of Baroda: AHIDF terms</a></li>
+    <li><a href="https://www.angelone.in/news/government-schemes/you-can-t-claim-your-farm-loan-waiver-if-you-don-t-complete-agristack-verification" target="_blank" rel="noopener noreferrer">AgriStack Farmer ID verification</a></li>
+    <li><a href="https://1acre.in/guides/maharashtra/8-a-extract-maharashtra" target="_blank" rel="noopener noreferrer">8A extract guide for Maharashtra</a></li>
+    <li><a href="https://calcguru.in/?p=2400" target="_blank" rel="noopener noreferrer">Masala unit licences</a> and <a href="https://calcguru.in/?p=5733" target="_blank" rel="noopener noreferrer">fruit juice unit licences</a></li>
+    <li><a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=1703485&amp;reg=48&amp;lang=2" target="_blank" rel="noopener noreferrer">PIB: medicinal plant cultivation subsidy</a></li>
+    <li><a href="https://www.storyboard18.com/how-it-works/fssai-scraps-mandatory-bis-mark-for-packaged-water-rolls-out-stricter-testing-regime-from-january-2026-86193.htm" target="_blank" rel="noopener noreferrer">FSSAI: BIS mark dropped for packaged water, testing scheme from January 2026</a></li>
+    <li><a href="https://www.etvbharat.com/en/bharat/pmfme-scheme-set-for-extension-after-hitting-2-lakh-unit-target-enn26082402796" target="_blank" rel="noopener noreferrer">PMFME extension status (August 2026)</a></li>
+    <li><a href="https://sbi.bank.in/web/agri-rural/agriculture-banking/government-schemes/ahidf" target="_blank" rel="noopener noreferrer">SBI: AHIDF terms</a> and <a href="https://narendramodi.in/cabinet-approves-extension-of-animal-husbandry-infrastructure-development-fund" target="_blank" rel="noopener noreferrer">Cabinet extension of AHIDF to 2025-26</a></li>
+  </ul>
+</details>
+</div>
+<script>
+/* ---------- data: every rule here comes from the sources listed on the page ---------- */
+const R=(t,n,l)=>({k:'R',t,n,l}), A=(t,n,l)=>({k:'A',t,n,l}), S=(t,n,l)=>({k:'S',t,n,l});
+const BIZ={
+  dairy:{name:'Dairy',desc:'Milch animals, cattle shed, or milk processing',q:'What will the dairy loan pay for?',
+    subs:{animals:['Animals and shed','Cows or buffaloes, cattle shed, fodder, milking equipment'],
+          processing:['Milk processing','Chilling, pasteurising, paneer, ghee or packaged milk']}},
+  spice:{name:'Spice processing and packaging',desc:'Grinding, blending and packing masala and spice powders',q:'Will you export the spices?',
+    subs:{local:['Sell in India only','Local, state and national markets'],export:['Export','Selling outside India']}},
+  beverage:{name:'Beverage production',desc:'Juice, soft drinks or packaged water',q:'What will you make?',
+    subs:{juice:['Juice, squash or soft drinks','Fruit-based and other non-alcoholic drinks'],
+          water:['Packaged drinking water','Bottled or jar water'],
+          alcohol:['Wine, beer or spirits','Alcoholic drinks']}},
+  groundnut:{name:'Groundnut processing',desc:'Shelling and grading, oil extraction or roasting',q:'What will the unit do?',
+    subs:{primary:['Cleaning, shelling and grading','Decorticating, sorting, grading and storage'],
+          oil:['Oil, roasting or peanut butter','Oil extraction, roasting, chikki or peanut butter']}},
+  herbs:{name:'Medicinal herbs farming',desc:'Growing herbs such as ashwagandha, tulsi or shatavari',q:'What kind of herbs will you grow?',
+    subs:{seasonal:['Seasonal herbs','Harvest within a year, such as ashwagandha or tulsi'],
+          longterm:['Long-duration plants','Take two years or more, such as shatavari or sandalwood']}}
+};
+const LAND=[['own','Own land','My name is on the 7/12'],['joint','Joint holding','Other names are on the 7/12'],['lease','Leased land','I use land that I lease'],['shed','Rented shed or plot','A rented shed, godown or industrial plot']];
+const FID=[['yes','Yes','I have a Farmer ID'],['no','Not yet','I have not registered'],['unsure','Not sure','I do not know if I have one']];
+const SIZE=[['s1','Up to ₹2 lakh',''],['s2','₹2 lakh to ₹10 lakh',''],['s3','₹10 lakh to ₹2 crore',''],['s4','Above ₹2 crore','']];
+const PM='PMFME gives a 35% capital subsidy up to ₹10 lakh per micro unit, if the scheme is open to new applications. You put in at least 10% of the cost, the bank lends the rest, and the subsidy is released only after the bank approves the loan.';
+const ROUTES={
+  'dairy.animals':{n:'Agriculture term loan, usually with NABARD refinance',p:['Apply at a commercial bank, regional rural bank or cooperative bank near you.','Feed and running costs can come through a Kisan Credit Card for animal husbandry.']},
+  'dairy.processing':{n:'AHIDF loan for dairy processing',p:['The Animal Husbandry Infrastructure Development Fund gives 3% interest subvention for up to 8 years of repayment. MSME units and dairy cooperatives can also get credit guarantee cover from CGTMSE (loans up to ₹10 crore) or NABSanrakshan.','Minimum margin is 10% for micro and small units and 15% for medium units. Repayment runs up to 10 years including a moratorium of up to 2 years.']},
+  'spice.local':{n:'MSME term loan with PMFME subsidy',p:[PM]},
+  'spice.export':{n:'MSME term loan with PMFME subsidy, plus export registrations',p:[PM,'Exporters also register with the Spices Board and need an Importer Exporter Code.']},
+  'beverage.juice':{n:'MSME term loan, with PMFME for micro units',p:['A micro unit can also apply to PMFME. '+PM]},
+  'beverage.water':{n:'MSME term loan',p:['Start the FSSAI licence and pollution consent files early because the bank will ask for them.','Packaged drinking water is now an FSSAI high-risk food category, so plan for the compulsory testing scheme and audits.']},
+  'beverage.alcohol':{n:'Not covered by this guide',p:[]},
+  'groundnut.primary':{n:'Agriculture Infrastructure Fund (AIF) loan for primary processing',p:['AIF gives 3% interest subvention on up to ₹2 crore of the loan for up to 7 years.','Loans up to ₹2 crore carry CGTMSE credit guarantee cover, and the government pays the fee.','You apply on the AIF portal. The scheme sets 60 days as the longest time for the bank to give its decision.']},
+  'groundnut.oil':{n:'MSME term loan with PMFME subsidy',p:[PM]},
+  'herbs.seasonal':{n:'Crop loan or Kisan Credit Card',p:['Seasonal herbs are financed like a crop, through a crop loan or a Kisan Credit Card limit.','The National AYUSH Mission has paid 30%, 50% or 75% of cultivation cost for prioritised species through the State Medicinal Plants Board.']},
+  'herbs.longterm':{n:'Agriculture term loan for plantation',p:['Long-duration plants are usually financed as a term loan. Ask for a moratorium that covers the years before the first harvest.','The National AYUSH Mission has paid 30%, 50% or 75% of cultivation cost for prioritised species through the State Medicinal Plants Board.']}
+};
+function collateral(kind,sz,key){
+  if(kind==='agri'){
+    if(sz==='s1') return 'No collateral or margin. RBI requires banks to waive both for agricultural and allied loans up to ₹2 lakh per borrower.';
+    if(sz==='s2') return 'The bank decides. It may waive collateral up to ₹3 lakh, so a loan near that size may go without it. Above that, expect a land mortgage.';
+    return 'The bank sets collateral and margin by its own policy. Expect a mortgage on your land, so keep the 7/12, 8A and mutation papers clean.';
+  }
+  const big=sz==='s4', pmk=['spice.local','spice.export','beverage.juice','groundnut.oil'].indexOf(key)>-1;
+  if(key==='groundnut.primary') return big
+    ? "Collateral follows the bank's policy. AIF interest subvention and CGTMSE cover apply only to the first ₹2 crore of the loan."
+    : 'That CGTMSE cover is what lets the bank lend without collateral up to ₹2 crore. Ask the bank to confirm that it will use it.';
+  if(key==='dairy.processing') return 'The bank takes the assets it finances as primary security. Collateral beyond that depends on the loan size and the bank policy, so keep the land papers clean.';
+  if(pmk&&(sz==='s1'||sz==='s2')) return 'PMFME loans up to ₹10 lakh are collateral-free, covered under PM MUDRA (SBI).';
+  if(big) return "Collateral follows the bank's own policy. Ask whether CGTMSE cover can apply at your loan size. SBI's PMFME page quotes cover of ₹5 to ₹10 crore.";
+  return 'Register the unit on Udyam so the bank can take CGTMSE credit guarantee cover instead of collateral. The bank decides.'+(pmk?' PMFME loans above ₹10 lakh fall outside the nil-collateral rule.':'');
+}
+/* ---------- builder: answers in, checklist out (pure function) ---------- */
+const FOSCOS={u:'https://foscos.fssai.gov.in',x:'FoSCoS'};
+const FFILE='Filed on FoSCoS. Manufacturers upload a layout plan, a list of machinery with capacity and horsepower, unit photographs, a water test report if water is an ingredient, and a recall plan.';
+const UDYAM=()=>R('Udyam registration','Free. Not compulsory by law, but banks use it for priority-sector lending and CGTMSE cover.');
+const GST=()=>R('GST registration, if applicable','Bring the certificate if your unit has one.');
+const PMS=()=>S('PMFME application','Apply on the PMFME portal with ID, address proof, photos, the project report and business papers. It goes to the local authorities and then to a bank.',{u:'https://pmfme.mofpi.gov.in',x:'PMFME portal'});
+function build(s){
+  const key=s.biz+'.'+s.sub, rt=ROUTES[key];
+  const kind=(key==='dairy.animals'||s.biz==='herbs')?'agri':'proc';
+  const alc=key==='beverage.alcohol', aif=key==='groundnut.primary';
+  const pm=['spice.local','spice.export','beverage.juice','groundnut.oil'].indexOf(key)>-1;
+  const sec=[], V=[];
+
+  const idn=[
+    R('Loan application form and two passport photos',"Use the bank's own form. Scheme loans also have an online form."),
+    R('ID proof','Aadhaar, Voter ID, driving licence, PAN card or passport. The accepted list differs a little by bank and scheme.'),
+    R('Address proof','Aadhaar, Voter ID or driving licence. The AIF checklist also accepts a recent electricity or property tax bill.'),
+    R('Bank statement for the last 12 months','The AIF checklist asks for one year, and some branches accept less. Include the repayment record of any loan you already have.')];
+  if(kind==='proc'||s.size==='s3'||s.size==='s4') idn.push(A('Income tax returns and balance sheets, last 3 years','Bring them if you file returns. Banks usually ask for them on business loans, and the AIF checklist lists them as if available.'));
+  if(kind==='proc') idn.push(A('Papers for a firm, company or FPO','Partnership deed or firm registration, certificate of incorporation and articles for a company, and the ROC search report. Skip this if you apply in your own name.'));
+  sec.push(['Identity and bank',idn]);
+
+  const portal={u:'https://mhfr.agristack.gov.in',x:'AgriStack portal'};
+  sec.push(['Farmer ID',[s.fid==='yes'
+    ? R('Farmer ID number or screenshot (फार्मर आयडी)','Keep the Aadhaar-linked mobile handy for OTP checks.',portal)
+    : R(s.fid==='no'?'Get your Farmer ID before you apply (फार्मर आयडी)':'Check that your Farmer ID exists (फार्मर आयडी)','Register or verify on the AgriStack portal with Aadhaar e-KYC. Fix spelling differences between Aadhaar, 7/12 and bank records first.',portal)]]);
+
+  const L=[];
+  if(s.land==='own'||s.land==='joint'){
+    L.push(R('Digitally signed 7/12 extract (सात-बारा उतारा)','Download it from Mahabhulekh. Digitally signed copies are accepted for loans, and plain web printouts may be refused.',{u:'https://bhulekh.mahabhumi.gov.in',x:'Mahabhulekh'}));
+    L.push(R('Digitally signed 8A extract (८अ उतारा)','Lists every survey number you hold in the village. The khata number must match the 7/12. Banks ask for it with the 7/12 for agricultural loans.'));
+    L.push(R('Ferfar or mutation entry (फेरफार), if the land changed hands','If the land came to you by sale, gift or inheritance, bring the approved mutation so your name shows on the 7/12. A pending mutation holds up loans.'));
+    if(s.land==='joint') L.push(A('Written consent of the co-owners','Banks usually want every name on the 7/12 to agree in writing before land is mortgaged. Ask which format the branch accepts.'));
+  } else if(s.land==='lease'){
+    L.push(R('Registered lease deed','Ask the bank how long a lease it needs for your loan period.'));
+    L.push(R("Lessor's 7/12 and 8A, digitally signed (सात-बारा उतारा, ८अ उतारा)",'Shows that the person leasing to you owns the land.'));
+    L.push(R("Lessor's written permission to mortgage",'Needed if the leased land is offered as security. The AIF checklist asks for it.'));
+  } else {
+    L.push(R('Rent agreement or electricity bill for the premises','FSSAI also accepts these as proof that you hold the premises.'));
+    L.push(A("Owner's no-objection letter",'A letter from the owner allowing this business to run in the shed or plot.'));
+  }
+  if(!alc){
+    if(kind==='proc'&&s.land!=='shed') L.push(A('Land-use paper for the unit','Since the December 2025 amendment, a separate Collector NA sanad is not needed where the use is allowed under the Development or Regional Plan. The planning authority development permission or building plan approval covers it, with a one-time conversion premium. Ask the bank which paper it accepts.'));
+    if(key==='dairy.animals'&&s.land!=='shed') L.push(A('Land-use check for a permanent cattle shed','Ask whether a shed on farmland needs any conversion paper.'));
+  }
+  sec.push(['Land',L]);
+
+  if(!alc){
+    const note={ 'dairy.animals':"NABARD's model format covers land, water, feed and fodder, vet and breeding access, milk marketing, your experience, running costs and repayment.",
+      'groundnut.primary':'Use the DPR template on the AIF portal. Any layout works if it carries the same information.',
+      'dairy.processing':'Prepared as per the AHIDF guidelines. The bank examines it and uploads the sanction letter.' }[key]
+      || (s.biz==='herbs'?'Species, area, expected yield, harvest months, expected price and cost of cultivation.':pm?'Upload it with the PMFME application. The bank appraises the same report.':'The bank appraises your costs, income and repayment from this report.');
+    const title=s.biz==='herbs'?'Project report or crop plan (प्रकल्प अहवाल)':'Detailed project report (प्रकल्प अहवाल)';
+    const P=[];
+    if(kind==='agri'&&s.size==='s1') P.push(A('Cost estimate or short project report','For a loan up to ₹2 lakh the branch may not need a full report. Ask how detailed it must be. '+note));
+    else P.push(R(title,note));
+    P.push(R('Written quotations',key==='dairy.animals'?'For animals, shed construction, milking and fodder equipment.':s.biz==='herbs'?'For certified planting material and irrigation items.':'For machinery and equipment, with capacity and horsepower.'));
+    if(!(kind==='agri'&&s.size==='s1')) P.push(A('Proof of your own contribution (margin)',
+      pm?'PMFME needs at least 10% of the project cost from you.':key==='dairy.processing'?'AHIDF minimum margin is 10% for micro and small units and 15% for medium units.':'Savings or a bank statement showing the part of the cost you will put in. The bank sets the share.'));
+    sec.push(['Project papers',P]);
+  }
+
+  let B=[], bt='';
+  switch(key){
+    case 'dairy.animals': bt='Dairy papers'; B=[
+      R('Nearest vet and breeding centre','NABARD model scheme asks where veterinary aid, artificial insemination and milk collection are available.'),
+      A('Milk sale proof','Membership of a dairy cooperative society or a tie-up with a private dairy. The bank wants to see where the milk will be sold.'),
+      A('Animal health certificate and insurance','NABARD model scheme includes animal insurance. Banks often take the vet health certificate after sanction, when the animals are bought.'),
+      A('Fodder and water plan','Land for fodder, the water source and the feeding plan, as the project report format asks.'),
+      A('FSSAI registration if you sell milk directly','Ask whether your sales route needs it.'),
+      A('Pollution board check for your herd size','The MPCB Orange list includes cattle farms with milking and milk collection and no processing. That list dates from 2018, so ask whether your herd size needs consent.')]; break;
+    case 'dairy.processing': bt='Dairy processing papers'; B=[
+      R('Business registration papers','Udyam, GST, and the registration of your firm, company or FPO.'),
+      R('FSSAI licence papers','A State or Central licence for a processor. Add a milk sourcing plan with the milk collection centre locations, and a no-objection certificate from the local body.',FOSCOS),
+      R('State clearances for a dairy plant','The AHIDF guidelines list state clearances needed to set up a dairy plant. Ask the bank for the current list.'),
+      A('Pollution board category','MPCB puts integrated milk processing projects in its Red category. Smaller units may rank lower, so ask for your category before you apply.')]; break;
+    case 'spice.local': case 'spice.export': bt='Spice unit papers'; B=[
+      R('FSSAI registration or State licence',FFILE+' The tier depends on turnover and capacity.',FOSCOS), UDYAM(), GST(),
+      A('Legal Metrology packer registration','Needed to sell packed goods. Labels carry net quantity, MRP, FSSAI number and best-before date.'),
+      A('Pollution board position','The MPCB white category list of June 2025 includes masala (spice) grinding and packaging. Ask MPCB or the bank what a white category unit must file. Older guides put grinding above 20 HP in the Orange category, so check your machinery.')];
+      if(s.sub==='export') B.push(R('Spices Board registration and Importer Exporter Code (IEC)','Exporters register with the Spices Board and hold an IEC from DGFT. FSSAI asks manufacturer-exporters for the IEC and a letterhead declaration that goods made only for export will not be sold in India.'));
+      B.push(PMS()); break;
+    case 'beverage.juice': bt='Beverage unit papers'; B=[
+      R('FSSAI registration or State licence','The tier depends on turnover and capacity. '+FFILE,FOSCOS),
+      R('Pollution consent to establish and to operate','Beverage units are not on the MPCB white list. The consent category depends on your process and water use, so ask MPCB or the bank.'), UDYAM(), GST(),
+      A('Legal Metrology packer registration and label check','Juice, nectar and fruit drink each have their own minimum fruit content under FSSAI rules, so the name on the label must match the recipe.'), PMS()]; break;
+    case 'beverage.water': bt='Beverage unit papers'; B=[
+      R('FSSAI licence with water reports','Add a pesticide residue report for the water, the raw water source and the treatment plan. Reports come from a recognised public health lab, with the sampler name and date.',FOSCOS),
+      R('Water testing records and audit papers','Packaged drinking water is now an FSSAI high-risk food category. A compulsory Scheme of Testing has applied since 1 January 2026: raw water tested at an FSSAI-notified NABL lab, monthly microbiology tests and batch records, kept ready for inspection and third-party audit.'),
+      A('BIS licence, only if your bank still asks','BIS certification is no longer mandatory for packaged drinking water. FSSAI dropped it and brought in the testing scheme. Some banks may still ask, so check before you spend on it.'),
+      R('Groundwater NOC from the Central Ground Water Authority','FSSAI asks for it where you extract groundwater.'),
+      R('Pollution consent to establish and to operate','Not on the MPCB white list. Ask MPCB or the bank for your category.'), UDYAM(), GST()]; break;
+    case 'groundnut.primary': bt='Groundnut unit papers'; B=[
+      S('AIF registration and application','Register on the AIF portal, then upload the project report and documents. The scheme sets 60 days as the longest time for the bank to decide.',{u:'https://agriinfra.dac.gov.in',x:'AIF portal'}),
+      R('Local authority permissions, layout plan and building sanction','The AIF checklist asks for these, as applicable.'),
+      R('Udyam or DIC registration','The AIF checklist lists the MSME certificate.'), GST(),
+      R('Net worth statement of the promoter','The AIF checklist asks for it.'),
+      R('FSSAI registration or licence, as applicable','Shelled and graded groundnuts are food products.',FOSCOS),
+      A('Pollution board position','MPCB lists dry groundnut decorticating, and groundnut processing other than oil expellers, as white category.')]; break;
+    case 'groundnut.oil': bt='Groundnut unit papers'; B=[
+      R('FSSAI registration or State licence','The tier depends on turnover and capacity. '+FFILE,FOSCOS), UDYAM(), GST(),
+      A('Pollution board position','Ghani oil extraction is on the MPCB white list. The groundnut entries leave out oil expellers, so check the category if you use an expeller.'),
+      A('Legal Metrology packer registration','Needed to sell packed oil.'), PMS()]; break;
+    case 'herbs.seasonal': case 'herbs.longterm': bt='Herb farming papers'; B=[
+      A('Buyer agreement','A buy-back agreement or letter from a processor or buyer shows the bank who will take your harvest.'),
+      A('Water source proof','Well, borewell or irrigation connection details, since herbs need assured water.'),
+      s.sub==='seasonal'?A('Crop loan or KCC limit','Ask for a Kisan Credit Card or crop loan limit for the season.'):A('Moratorium until the first harvest','Ask for repayment to start after the first harvest.'),
+      S('Subsidy application','Subsidy of 30%, 50% or 75% of cultivation cost has covered prioritised species under the National AYUSH Mission. Apply through the Maharashtra State Horticulture and Medicinal Plants Board or the district agriculture office, and check the current species list first.',{u:'https://nmpb.nic.in',x:'NMPB website'})]; break;
+  }
+  if(B.length) sec.push([bt,B]);
+
+  V.push(['Branches differ','Banks and branches can ask for more. Treat this as the usual list and confirm it when you book the visit.']);
+  if(s.fid!=='yes') V.push(['Farmer ID','Branches differ on whether they insist on it for a business loan. Ask when you book the visit.']);
+  if(aif) V.push(['Check that AIF is open','The AIF portal says the scheme runs to 2032-33, but new loans were to be disbursed within six years of its 2020-21 start, that is by March 2026. A district notice in July 2026 still invited applications. Ask the bank or the NABARD district office whether new loans are being sanctioned before you count on the interest subvention.',1]);
+  if(key==='dairy.processing') V.push(['Check that AHIDF is open','The Cabinet extended AHIDF up to 2025-26, which ended in March 2026. We could not confirm a further extension. Ask the bank or the district animal husbandry or dairy office whether new loans still get the 3% interest subvention.',1]);
+  if(pm) V.push(['Check that PMFME is open','PMFME was extended only until 30 September 2026. In August 2026 the food processing ministry was still waiting for approval to continue it from 2026-27 to 2030-31, possibly with changed rules and a higher subsidy cap. Ask the district industries centre or the bank whether new applications are open and what the subsidy is now. Slots can also depend on One District One Product and district targets.',1]);
+  if(kind==='proc'&&!alc) V.push(['Pollution consent category','MPCB revises its category lists. Confirm your unit category on the MPCB site or with the bank before you build.']);
+  if(s.biz==='herbs') V.push(['Subsidy list changes','Check the current prioritised species and subsidy rate with the State Medicinal Plants Board.']);
+
+  const stop=alc?{t:'Alcoholic drinks are not covered',b:'Wine, beer and spirits need State Excise licences on top of FSSAI and pollution consent. Talk to the bank and the State Excise office first. The papers below are only the usual core file.'}:null;
+  return {kind,route:rt,how:alc?[]:rt.p.concat([collateral(kind,s.size,key)]),sections:sec,verify:V,stop};
+}
+/* ---------- app: questions, checklist card, route map ---------- */
+const $=(q,r)=>(r||document).querySelector(q);
+const $$=(q,r)=>Array.prototype.slice.call((r||document).querySelectorAll(q));
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const hasOwn=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
+const KEY='mflf-v1';
+const CAP0=$('#mapcap').textContent;
+const calm=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+const BLANK=()=>({biz:null,sub:null,land:null,fid:null,size:null});
+const EX=[
+  {biz:'spice',sub:'local',land:'own',fid:'yes',size:'s2'},
+  {biz:'dairy',sub:'animals',land:'joint',fid:'unsure',size:'s1'},
+  {biz:'groundnut',sub:'primary',land:'lease',fid:'no',size:'s3'},
+  {biz:'herbs',sub:'longterm',land:'own',fid:'yes',size:'s2'},
+  {biz:'beverage',sub:'water',land:'shed',fid:'yes',size:'s3'}
+];
+let ST=BLANK(), CK=Object.create(null), cur=null, exi=0;
+const pickOf=(list,v)=>{for(let i=0;i<list.length;i++)if(list[i][0]===v)return list[i];return null};
+const isDone=s=>!!(s.biz&&s.sub&&s.land&&s.fid&&s.size);
+
+/* state and storage (storage may be blocked, so every access is guarded) */
+function clean(x){
+  const o=BLANK(); if(!x||typeof x!=='object') return o;
+  if(typeof x.biz==='string'&&hasOwn(BIZ,x.biz)){ o.biz=x.biz; if(typeof x.sub==='string'&&hasOwn(BIZ[x.biz].subs,x.sub)) o.sub=x.sub; }
+  if(pickOf(LAND,x.land)) o.land=x.land;
+  if(pickOf(FID,x.fid)) o.fid=x.fid;
+  if(pickOf(SIZE,x.size)) o.size=x.size;
+  return o;
+}
+function load(){
+  try{
+    const j=JSON.parse(localStorage.getItem(KEY)||'null');
+    if(j){ ST=clean(j.s); if(j.c&&typeof j.c==='object') Object.keys(j.c).forEach(k=>{ if(j.c[k]===1) CK[k]=1; }); }
+  }catch(e){}
+}
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify({s:ST,c:CK})); }catch(e){} }
+
+/* the five questions */
+function stepsOf(s){
+  const b=s.biz?BIZ[s.biz]:null;
+  return [
+    {k:'biz',q:'Which business is the loan for?',o:Object.keys(BIZ).map(k=>[k,BIZ[k].name,BIZ[k].desc])},
+    {k:'sub',q:b?b.q:'A question about your business',o:b?Object.keys(b.subs).map(k=>[k,b.subs[k][0],b.subs[k][1]]):[],wait:'This depends on the business you pick.'},
+    {k:'land',q:'Whose land or building will it use?',o:LAND,c2:1},
+    {k:'fid',q:'Do you have an AgriStack Farmer ID?',o:FID,hint:'The Farmer ID is a number from the AgriStack farmer registry. Choose Not sure if you cannot say, and the checklist will tell you how to check.'},
+    {k:'size',q:'About how much will you borrow?',o:SIZE,c2:1,hint:'A rough figure for the whole project is enough. It decides which collateral rule applies.'}
+  ];
+}
+function stepHtml(p,i,now){
+  const v=ST[p.k], cls=v?'done':(now===i?'now':'later');
+  let h='<section class="step '+cls+'"><div class="mark" aria-hidden="true">'+(i+1)+'</div><div><h2 class="q" tabindex="-1">'+esc(p.q)+'</h2>';
+  if(v){
+    const o=pickOf(p.o,v);
+    h+='<p class="ans"><span class="chip">'+esc(o?o[1]:'')+'</span><button type="button" class="edit" data-edit="'+p.k+'" aria-label="Change answer: '+esc(p.q)+'">Change</button></p>';
+  }else if(now===i){
+    h+='<div class="opts'+(p.c2?' c2':'')+'">'+p.o.map(o=>'<button type="button" class="opt" data-pick="'+p.k+'" data-v="'+o[0]+'"><b>'+esc(o[1])+'</b>'+(o[2]?'<span>'+esc(o[2])+'</span>':'')+'</button>').join('')+'</div>';
+    if(p.hint) h+='<p class="hint">'+esc(p.hint)+'</p>';
+  }else if(p.wait&&!ST.biz){
+    h+='<p class="later-note">'+esc(p.wait)+'</p>';
+  }
+  return h+'</div></section>';
+}
+
+/* the checklist card */
+function note(v){ return '<p class="notice"><b>'+esc(v[0])+'</b>'+esc(v[1])+'</p>'; }
+function itemHtml(it,i){
+  const tg=it.k==='R'?['req','Needed']:it.k==='A'?['ask','Ask your bank']:['sch','Scheme'];
+  const lk=it.l?' <a href="'+esc(it.l.u)+'" target="_blank" rel="noopener noreferrer">Open '+esc(it.l.x)+'</a>':'';
+  return '<li class="item"><label><input type="checkbox" data-i="'+i+'"'+(CK[it.t]?' checked':'')+'><span class="box"></span><span class="txt"><span class="ttl"><b>'+esc(it.t)+'</b><i class="tag '+tg[0]+'">'+tg[1]+'</i></span>'+((it.n||lk)?'<small>'+esc(it.n||'')+lk+'</small>':'')+'</span></label></li>';
+}
+function cardHtml(b,items){
+  const bz=BIZ[ST.biz], sb=bz.subs[ST.sub][0];
+  const chips=[bz.name,sb,pickOf(LAND,ST.land)[1],'Farmer ID: '+pickOf(FID,ST.fid)[1],'Loan: '+pickOf(SIZE,ST.size)[1]];
+  const early=b.verify.filter(v=>v[2]);
+  const late=b.verify.filter(v=>early.indexOf(v)<0);
+  let h='<section class="card" id="result" tabindex="-1" aria-labelledby="rh"><div class="card-h"><h2 id="rh">Your document checklist</h2><p>'+esc(bz.name)+' · '+esc(sb)+'</p></div><div class="card-b">';
+  h+='<div class="sum">'+chips.map(c=>'<span class="chip">'+esc(c)+'</span>').join('')+'</div>';
+  if(b.stop) h+='<p class="notice stop"><b>'+esc(b.stop.t)+'</b>'+esc(b.stop.b)+'</p>';
+  if(b.how.length) h+='<div class="sec"><h3>How your loan works</h3><p class="rt"><b>'+esc(b.route.n)+'</b></p><ul class="how">'+b.how.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>';
+  h+=early.map(note).join('');
+  h+='<div class="progress"><span class="pc"></span><div class="bar" aria-hidden="true"><i class="pb"></i></div></div>';
+  h+='<p class="legend"><i class="tag req">Needed</i> expected in almost every file. <i class="tag ask">Ask your bank</i> depends on the branch or your case. <i class="tag sch">Scheme</i> only if you apply under that scheme. Tick each paper as you collect it.</p>';
+  b.sections.forEach(sc=>{
+    h+='<section class="sec"><h3>'+esc(sc[0])+'</h3><ul class="items">';
+    sc[1].forEach(it=>{ h+=itemHtml(it,items.length); items.push(it); });
+    h+='</ul></section>';
+  });
+  if(late.length) h+='<div class="sec"><h3>Confirm at the branch</h3><div class="verify">'+late.map(note).join('')+'</div></div>';
+  h+='<div class="actions"><button type="button" class="btn" id="cpb">Copy checklist</button><a class="btn ghost" id="wa" href="https://wa.me/" target="_blank" rel="noopener noreferrer">Send on WhatsApp</a><button type="button" class="edit" id="clr">Clear ticks</button></div>';
+  h+='<p class="hint" id="cph" role="status"></p><textarea class="cp" id="cp" rows="9" readonly hidden aria-label="Checklist text to copy"></textarea>';
+  return h+'</div></section>';
+}
+function toText(){
+  const b=cur.b, bz=BIZ[ST.biz], o=[];
+  o.push('Farm loan documents: '+bz.name+', '+bz.subs[ST.sub][0]);
+  o.push('Land: '+pickOf(LAND,ST.land)[1]+'. Farmer ID: '+pickOf(FID,ST.fid)[1]+'. Loan: '+pickOf(SIZE,ST.size)[1]+'.');
+  if(b.stop) o.push('',b.stop.t.toUpperCase()+': '+b.stop.b);
+  if(b.how.length){ o.push('','LOAN ROUTE: '+b.route.n); b.how.forEach(x=>o.push('- '+x)); }
+  b.sections.forEach(sc=>{
+    o.push('',sc[0].toUpperCase());
+    sc[1].forEach(it=>o.push((CK[it.t]?'[x] ':'[ ] ')+it.t+(it.k==='A'?' (ask your bank)':it.k==='S'?' (scheme)':'')));
+  });
+  if(b.verify.length){ o.push('','CONFIRM AT THE BRANCH'); b.verify.forEach(v=>o.push('- '+v[0]+': '+v[1])); }
+  o.push('','Guide only. Banks differ, so confirm with your branch.');
+  return o.join('\n');
+}
+function paint(){
+  if(!cur) return;
+  const n=cur.items.length, d=cur.items.filter(it=>CK[it.t]).length;
+  $$('.pc').forEach(e=>{ e.textContent=d+' of '+n+' papers ready'; });
+  $$('.pb').forEach(e=>{ e.style.width=(n?Math.round(100*d/n):0)+'%'; });
+  const wa=$('#wa'); if(wa) wa.href='https://wa.me/?text='+encodeURIComponent(toText());
+}
+function render(){
+  const st=stepsOf(ST); let now=-1;
+  for(let i=0;i<st.length;i++){ if(!ST[st[i].k]){ now=i; break; } }
+  let h=st.map((p,i)=>stepHtml(p,i,now)).join('');
+  cur=null;
+  if(isDone(ST)){ const b=build(ST), items=[]; h+=cardHtml(b,items); cur={b:b,items:items}; }
+  $('#flow').innerHTML=h;
+  paint();
+}
+
+/* the route map */
+function caption(){
+  if(!ST.biz) return CAP0;
+  const bz=BIZ[ST.biz];
+  if(!ST.sub) return bz.name+' is lit up. Answer the next question to see your loan route.';
+  const key=ST.biz+'.'+ST.sub;
+  if(key==='beverage.alcohol') return 'Alcoholic drinks are outside this guide. The checklist shows only the core file.';
+  const first=bz.name+' → '+ROUTES[key].n;
+  return isDone(ST)
+    ? 'Your route: '+first+' → land and Farmer ID papers → loan size and collateral → licences and scheme papers → your checklist.'
+    : 'Route so far: '+first+'. The boxes turn green as you answer.';
+}
+function updateMap(){
+  $$('#map .biz').forEach(g=>g.classList.toggle('on',g.getAttribute('data-b')===ST.biz));
+  $$('#map .gate').forEach(g=>{
+    const n=g.getAttribute('data-g');
+    g.classList.toggle('done',!!(n==='1'?(ST.land&&ST.fid):n==='2'?ST.size:ST.sub));
+  });
+  const r=$('#map .res'); if(r) r.classList.toggle('on',isDone(ST));
+  $('#mapcap').textContent=caption();
+}
+
+/* moving the reader to the right place after each change */
+function place(){
+  const fin=isDone(ST), el=fin?$('#result'):$('.step.now .q');
+  if(!el) return;
+  try{ el.focus({preventScroll:true}); }catch(e){}
+  const r=el.getBoundingClientRect(), vh=window.innerHeight||600;
+  if(fin||r.top<0||r.top>vh*0.6) window.scrollTo({top:window.pageYOffset+r.top-(fin?12:80),behavior:calm?'auto':'smooth'});
+}
+function go(){ ST=clean(ST); save(); render(); updateMap(); place(); }
+
+/* copy */
+function say(t){ const m=$('#cph'); if(m) m.textContent=t; }
+function copyOut(){
+  const t=toText();
+  const manual=()=>{
+    const ta=$('#cp'); if(!ta) return;
+    ta.hidden=false; ta.value=t; ta.focus(); ta.select();
+    let ok=false; try{ ok=document.execCommand('copy'); }catch(e){}
+    say(ok?'Copied. Paste it into Notes or WhatsApp.':'Select the text below and copy it.');
+  };
+  try{
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(()=>say('Copied. Paste it into Notes or WhatsApp.'),manual);
+      return;
+    }
+  }catch(e){}
+  manual();
+}
+
+/* events */
+$('#flow').addEventListener('click',e=>{
+  const t=e.target.closest?e.target.closest('button'):null; if(!t) return;
+  const pk=t.getAttribute('data-pick'), ed=t.getAttribute('data-edit');
+  if(pk){ ST[pk]=t.getAttribute('data-v'); if(pk==='biz') ST.sub=null; go(); }
+  else if(ed){ ST[ed]=null; if(ed==='biz') ST.sub=null; go(); }
+  else if(t.id==='cpb') copyOut();
+  else if(t.id==='clr'){ CK=Object.create(null); save(); $$('#flow input[data-i]').forEach(i=>{ i.checked=false; }); paint(); say('Ticks cleared.'); }
+});
+$('#flow').addEventListener('change',e=>{
+  const t=e.target; if(!cur||!t||!t.matches||!t.matches('input[data-i]')) return;
+  const it=cur.items[+t.getAttribute('data-i')]; if(!it) return;
+  if(t.checked) CK[it.t]=1; else delete CK[it.t];
+  save(); paint();
+});
+$('#ex').addEventListener('click',()=>{ ST=clean(EX[exi++%EX.length]); go(); });
+$('#reset').addEventListener('click',()=>{ ST=BLANK(); go(); });
+
+load(); render(); updateMap();
+</script>
+
+</body></html>
